@@ -56,6 +56,21 @@ class SistemManajemenKepegawaian:
             csv_writer.writerow([id, nama, posisi, gaji, ""])
         self.add_karyawan(id, nama, posisi, gaji)
 
+    def sort_karyawan(self, key):
+        if key == 'id':
+            self.karyawan.sort(key=lambda pgw: pgw.id)
+        elif key == 'nama':
+            self.karyawan.sort(key=lambda pgw: pgw.nama)
+        elif key == 'posisi':
+            self.karyawan.sort(key=lambda pgw: pgw.posisi)
+        elif key == 'gaji':
+            self.karyawan.sort(key=lambda pgw: pgw.gaji)
+
+    def search_karyawan(self, id):
+        for pgw in self.karyawan:
+            if pgw.id == id:
+                return pgw
+        return None
 
 def menu():
     ems = SistemManajemenKepegawaian()
@@ -66,7 +81,10 @@ def menu():
         print("3. Edit Data")
         print("4. Tampilkan Data")
         print("5. Import File CSV")
-        print("6. Keluar")
+        print("6. Sort Data")
+        print("7. Search Data")
+        print("8. Simpan File CSV")
+        print("9. Keluar")
         opsi = input("Masukkan Pilihan: ")
 
         if opsi == '1':
@@ -102,8 +120,26 @@ def menu():
             print("Import File CSV")
             file = input("Nama File CSV: ")
             ems.import_csv(file)
-            
+
         elif opsi == '6':
+            key = input("Urutkan Berdasarkan (id, nama, posisi, gaji): ")
+            ems.sort_karyawan(key)
+            ems.display_karyawan()
+
+        elif opsi == '7':
+            id = input("Cari Berdasarkan Id: ")
+            pgw = ems.search_karyawan(id)
+            if pgw:
+                print("Data Ditemukan:", pgw)
+            else:
+                print("Data Tidak Ditemukan.")
+
+        elif opsi == '8':
+            print("Simpan File CSV")
+            export_file = input("File CSV: ")
+            ems.export_csv(export_file)
+            
+        elif opsi == '9':
             print("Keluar Dari Program...")
             break
 
