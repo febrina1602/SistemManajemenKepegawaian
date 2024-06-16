@@ -177,31 +177,20 @@ class SistemManajemenKepegawaian:
                 self.priority_q.put((highest_priority_task[0], pgw))
                 pgw.Tugas.put(highest_priority_task)
 
-def menu():
-    ems = SistemManajemenKepegawaian()
+def menu_karyawan(ems):
     while True:
-        print("\n----- Sistem Manajemen Kepegawaian -----")
-        print("1. Import File CSV")
-        print("2. Tambah Data")
-        print("3. Edit Data")
-        print("4. Hapus Data")
-        print("5. Tampilkan Data")
-        print("6. Sort Data")
-        print("7. Search Data")
-        print("8. Tambah Tugas")
-        print("9. Hapus Tugas")
-        print("10. Tampilkan Tugas")
-        print("11. Simpan File CSV")
-        print("12. Keluar")
+        print("\n----- Pengelolaan Data Karyawan -----")
+        print("1. Tambah Data Karyawan")
+        print("2. Edit Data Karyawan")
+        print("3. Hapus Data Karyawan")
+        print("4. Tampilkan Data Karyawan")
+        print("5. Sorting Data Karyawan")
+        print("6. Cari Data Karyawan")
+        print("7. Kembali ke Menu Utama")
         opsi = input("Masukkan Pilihan: ")
 
         if opsi == '1':
-            print("Import File CSV")
-            file = input("Nama File CSV: ")
-            ems.import_csv(file)
-            
-        elif opsi == '2':
-            print("Menambahkan Data")
+            print("Menambahkan Data Karyawan")
             file = input("Nama File: ")
             id = input("Id Karyawan: ")
             nama = input("Nama Karyawan: ")
@@ -209,8 +198,8 @@ def menu():
             gaji = int(input("Gaji: "))
             ems.add_karyawan_ke_csv(file, id, nama, posisi, gaji)
 
-        elif opsi == '3':
-            print("Mengubah Data")
+        elif opsi == '2':
+            print("Mengubah Data Karyawan")
             id = input("Id Karyawan: ")
             nama = input("Nama Karyawan: ")
             posisi = input("Posisi Karyawan: ")
@@ -219,22 +208,22 @@ def menu():
             ems.update_karyawan(id, nama, posisi, gaji)
             ems.export_csv()
 
-        elif opsi == '4':
-            print("Menghapus Data")
+        elif opsi == '3':
+            print("Menghapus Data Karyawan")
             id = input("Id Karyawan: ")
             ems.remove_karyawan(id)
             ems.export_csv()
 
-        elif opsi == '5':
+        elif opsi == '4':
             print("Data Karyawan:")
             ems.display_karyawan()
 
-        elif opsi == '6':
+        elif opsi == '5':
             key = input("Urutkan Berdasarkan (id, nama, posisi, gaji): ")
             ems.sort_karyawan(key)
             ems.display_karyawan()
 
-        elif opsi == '7':
+        elif opsi == '6':
             id = input("Cari Berdasarkan Id: ")
             pgw = ems.search_karyawan(id)
             if pgw:
@@ -242,31 +231,76 @@ def menu():
             else:
                 print("Data Tidak Ditemukan.")
 
-        elif opsi == '8':
-            print("Menambahkan Tugas")
+        elif opsi == '7':
+            print("Kembali ke Menu Utama")
+            break
+
+        else:
+            print("Silakan Masukkan Opsi Yang Valid.")
+
+def menu_tugas(ems):
+    while True:
+        print("\n----- Pengelolaan Tugas Karyawan -----")
+        print("1. Tambah Tugas Karyawan")
+        print("2. Hapus Tugas Karyawan")
+        print("3. Tampilkan Tugas")
+        print("4. Kembali ke Menu Utama")
+        opsi = input("Masukkan Pilihan: ")
+
+        if opsi == '1':
+            print("Menambahkan Tugas Karyawan")
             id = input("Id Karyawan: ")
             tugas = input("Deskripsi Tugas: ")
             prioritas = int(input("Prioritas Tugas (Angka Terendah Menjadi Prioritas Tinggi): "))
             ems.add_tugas(id, tugas, prioritas)
             ems.export_csv()
 
-        elif opsi == '9':
-            print("Menghapus Tugas")
+        elif opsi == '2':
+            print("Menghapus Tugas Karyawan")
             id = input("Id Karyawan: ")
             tugas = input("Deskripsi Tugas: ")
             ems.remove_tugas(id, tugas)
             ems.export_csv()
 
-        elif opsi == '10':
-            print("Prioritas Tugas:")
+        elif opsi == '3':
+            print("Tugas Karyawan:")
             ems.display_priority_q()
 
-        elif opsi == '11':
+        elif opsi == '4':
+            print("Kembali ke Menu Utama")
+            break
+
+        else:
+            print("Silakan Masukkan Opsi Yang Valid.")
+
+def menu():
+    ems = SistemManajemenKepegawaian()
+    while True:
+        print("\n----- Sistem Manajemen Kepegawaian -----")
+        print("1. Import File CSV")
+        print("2. Data Karyawan")
+        print("3. Tugas Karyawan")
+        print("4. Simpan File CSV")
+        print("5. Keluar")
+        opsi = input("Masukkan Pilihan: ")
+
+        if opsi == '1':
+            print("Import File CSV")
+            file = input("Nama File CSV: ")
+            ems.import_csv(file)
+
+        elif opsi == '2':
+            menu_karyawan(ems)
+
+        elif opsi == '3':
+            menu_tugas(ems)
+            
+        elif opsi == '4':
             print("Simpan File CSV")
             export_file = input("File CSV: ")
             ems.export_csv(export_file)
-            
-        elif opsi == '12':
+
+        elif opsi == '5':
             print("Keluar Dari Program...")
             break
 

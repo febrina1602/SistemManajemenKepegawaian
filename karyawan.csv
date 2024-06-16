@@ -100,4 +100,6 @@ id,nama,posisi,gaji,Tugas
 099,Eva Johnson,Coordinator,98546,
 100,Jack Taylor,Administrator,70757,
 101,Okta Safitri,Staff,56000,
-102,Febri,Developer,85000,
+102,Febri,Developer,85000,"2,do it"
+103,Azahra,Developer,78000,"1,do it now"
+104,Aulia,Staff,90000,"3,do it later"
